@@ -102,13 +102,18 @@ module Enumerable
     return num_true
   end
 
-  def my_map
+  def my_map(my_proc=nil)
     return self.length unless block_given?
     i = 0
     array = Array.new
-    while i < self.length
-      array.push(yield(self[i]))
-      i += 1
+    if my_proc == nil
+      while i < self.length
+        array.push(yield(self[i]))
+        i += 1
+      end
+    else
+      while i < self.length
+        array.push(my_proc.call self[i])
     end
     return array
   end
